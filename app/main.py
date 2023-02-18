@@ -7,7 +7,7 @@ app = FastAPI()
 
 @app.get("/")
 def read_root():
-    return {"meggage": "Hello World- This is my first sample hello world app and trigger the CI/CD action on GCP Cloud Build"}
+    return {"meggage": "Hello World- This is my first sample hello world app and trigger the CI/CD action on GCP Cloud Build and deploy on cloud run"}
 
 
 @app.get("/items/{item_id}")
