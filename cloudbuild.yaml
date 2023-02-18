@@ -1,18 +1,19 @@
 steps:
   #Build the image
   - name: 'gcr.io/cloud-builders/docker'
-    args: ['build', '-t', 'gcr.io/${PROJECT_ID}/${_CONTAINER_NAME}:${_VERSION}', '.']
+    args: ['build', '-t', 'gcr.io/${_PROJECT_ID}/${_CONTAINER_NAME}:${_VERSION}', '.']
     id: 'build-image-myapp'
     waitFor: ['-']  # The '-' indicates that this step begins immediately.
   #Push the image to google container registry
   - name: 'gcr.io/cloud-builders/docker'
-    args: ['push', 'gcr.io/${PROJECT_ID}/${_CONTAINER_NAME}:${_VERSION}']
+    args: ['push', 'gcr.io/${_PROJECT_ID}/${_CONTAINER_NAME}:${_VERSION}']
     id: 'push-image-to-container-registry'
     waitFor: ['build-image-myapp']
 
 substitutions:
   #GCP Specific configuration. Please DON'T change anything
-  PROJECT_ID: ${_PROJECT_ID}
+  # If you don't pass _PROJECT_ID here then add this variable during creation of cloud build trigger.
+  # _PROJECT_ID: YOUR_PROJECT_ID
   _ZONE: us-central1-c
   
   #Repository Specific configuration. DevOps can change this settings
